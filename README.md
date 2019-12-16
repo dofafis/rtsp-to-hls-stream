@@ -18,7 +18,7 @@ Linux: https://www.tecmint.com/install-ffmpeg-in-linux/
 2. Node 10+ (I recommend Node Version Manager - NVM to easily use various Node versions)
 
 ```
-git clone https://github.coom/dofafis/rtsp-to-hls-stream
+git clone https://github.com/dofafis/rtsp-to-hls-stream
 cd rtsp-to-hls-stream
 npm i
 node server.js
