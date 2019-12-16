@@ -42,7 +42,9 @@ Successful return:
 ```
 
 **GET  /streams/:streamhash.m3u8**
+
 Example: /streams/1017e9b0a8fab49a18de0e4932f2c9c8.m3u8
 
 **DELETE  /streams/:streamhash**
+
 Example: /streams/1017e9b0a8fab49a18de0e4932f2c9c8
