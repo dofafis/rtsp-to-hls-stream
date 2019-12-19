@@ -9,7 +9,7 @@ docker run -p 8000:8000 -d dofafis/rtsp-to-hls-stream
 
 **Run from source code**
 
-1. First you must have ffmpeg installed on your machine:7
+1. First you must have ffmpeg installed on your machine:
 
 Windows: http://blog.gregzaal.com/how-to-install-ffmpeg-on-windows/
 
