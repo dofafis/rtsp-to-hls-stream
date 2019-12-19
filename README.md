@@ -52,7 +52,7 @@ Example: /streams/1017e9b0a8fab49a18de0e4932f2c9c8
 
 
 **COMING SOON**
-- Example frontend using hls.js library
+- Parameterizing ffmpeg arguments to make a generic endpoint using all the ffmpeg power
+- hls.js library with plain javascript
 - hls.js library with Angular 8
 - hls.js library with React
-- Parameterizing ffmpeg arguments to make a generic endpoint using all the ffmpeg power
