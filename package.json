@@ -1,0 +1,39 @@
+{
+  "name": "rtsp-to-hls-stream",
+  "version": "1.0.0",
+  "description": "**RTSP-TO-HLS-STREAM**",
+  "main": "clean-streams-folder-job.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "fluent-ffmpeg": "^2.1.2",
+    "express": "^4.17.1",
+    "glob": "^7.1.6",
+    "hls-server": "^1.5.0",
+    "node-schedule": "^1.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dofafis/rtsp-to-hls-stream.git"
+  },
+  "keywords": [
+    "api",
+    "rest",
+    "node",
+    "expressjs",
+    "rtsp",
+    "hls",
+    "schedule"
+  ],
+  "author": "Lucas Farias de Oliveira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dofafis/rtsp-to-hls-stream/issues"
+  },
+  "homepage": "https://github.com/dofafis/rtsp-to-hls-stream#readme"
+}
