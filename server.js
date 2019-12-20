@@ -3,7 +3,14 @@ var cors = require('cors')
 var path = require('path')
 var job = require('./clean-streams-folder-job')
 
+var swaggerUi = require('swagger-ui-express')
+var YAML = require('yamljs')
+var swaggerDocument = YAML.load('./swagger.yaml')
+
 var app = express()
+
+// Enabling Swagger docs with 'swagger-ui-express'
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // Enabling CORS
 app.use(cors())

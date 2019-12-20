@@ -1,0 +1,79 @@
+swagger: "2.0"
+info:
+  description: "Simple Node Rest API to convert RTSP (Real Time Stream Protocol) streams to HLS (HTTP Live Streaming) using ffmpeg."
+  version: "1.0.0"
+  title: "RTSP-TO-HLS-STREAM"
+  contact:
+    email: "lfo@icomp.ufam.edu.br"
+host: "localhost"
+basePath: "/"
+tags:
+- name: "Streams"
+  description: "Manage streams"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+
+schemes:
+- "https"
+- "http"
+paths:
+  /streams:
+    post:
+      tags:
+      - "Streams"
+      summary: "Give an rtsp stream and receive it converted to HLS stream"
+      description: ""
+      operationId: "addRTSPStream"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "RTSP stream url to be converted to HLS stream"
+        required: true
+        schema:
+          $ref: "#/definitions/RTSP"
+      responses:
+        405:
+          description: "Invalid input"
+  /streams/{streamHash}:
+    get:
+      tags:
+      - "Streams"
+      summary: "Add a new pet to the store"
+      description: ""
+      operationId: "addPet"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: path
+          name: streamHash
+          schema:
+            type: string
+          required: true
+          description: Stream Hash received on POST /streams
+      responses:
+        405:
+          description: "Invalid input"
+definitions:
+  RTSP:
+    type: "object"
+    required:
+    - "name"
+    - "photoUrls"
+    properties:
+      rtsp:
+        type: "string"
+  ApiResponse:
+    type: "object"
+    properties:
+      streamURI:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
