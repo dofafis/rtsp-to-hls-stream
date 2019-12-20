@@ -5,4 +5,8 @@ jobs:
             - image: circleci/node:10.15.2
         steps:
             - checkout
-            - run: echo "A first hello"
+            - setup_remote_docker:
+                docker_layer_caching: true
+            - run: docker build -t dofafis/rtsp-to-hls-stream .
+            - run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+            - run: docker push dofafis/rtsp-to-hls-stream
