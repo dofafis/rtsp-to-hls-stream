@@ -36,12 +36,13 @@ router.post('/', createStreamFileName, function (req, res) {
                         res.end(JSON.stringify({status: 400, error: 'Error creating stream, verify your rtsp URL or try again later'}))
                     })
                     .on('progress', ()=>{
-
+                        res.end(JSON.stringify({streamURI: '/streams/' + streamFileName + '.m3u8'}))
+                    })
+                    .on('end', ()=>{
                         store.push(streamFileName);
                         fs.writeFileSync(__dirname + '/../streams/store.json', JSON.stringify(store))
-                        res.end(JSON.stringify({streamURI: '/streams/' + streamFileName + '.m3u8'}))
-                        
-                    }).run()
+                    })
+                    .run()
                     
                 } catch (error) {
                     
