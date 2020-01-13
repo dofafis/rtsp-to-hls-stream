@@ -28,8 +28,11 @@ router.post('/', createStreamFileName, function (req, res) {
                     /* Executing ffmpeg command to convert the RTSP stream to HLS, you can add more options if you find it necessary,
                     in my case, more options generated more problems, so I kept it to a minimum */
                     ffmpeg(req.body.rtsp, { timeout: 432000 }).addOptions([
+                        '-rtsp_transport tcp',
                         '-y', // baseline profile (level 3.0) for H264 video codec
-                        '-f hls'               // HLS format
+                        '-f hls',
+                        '-start_number 0',
+                        '-hls_time 4'
                     ]).output('./streams/' + streamFileName + '.m3u8')
                     .on('error', function(err, stdout, stderr) {
                         console.log(err)
