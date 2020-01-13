@@ -2,7 +2,7 @@ FROM node:10
 
 RUN apt-get -y update
 RUN apt-get -y upgrade
-RUN apt-get install ffmpeg libavcodec-extra-53
+RUN apt-get install -y ffmpeg
 
 # Create app directory
 WORKDIR /rtsp-to-hls-stream
