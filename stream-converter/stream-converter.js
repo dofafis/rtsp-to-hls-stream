@@ -3,6 +3,7 @@ var ffmpeg = require('fluent-ffmpeg')
 var crypto = require('crypto')
 var fs = require('fs')
 var glob = require('glob')
+var spaw_process = require('./spawn_process')
 
 router.post('/', createStreamFileName, function (req, res) {
   
@@ -23,43 +24,39 @@ router.post('/', createStreamFileName, function (req, res) {
             } else if(err.code === 'ENOENT') {
                 
                 console.log('Stream doesn\'t exist yet')
-                try {
-                    
                     /* Executing ffmpeg command to convert the RTSP stream to HLS, you can add more options if you find it necessary,
                     in my case, more options generated more problems, so I kept it to a minimum */
-                    ffmpeg(req.body.rtsp, { timeout: 432000 }).addOptions([
-                        '-rtsp_transport tcp',
-                        '-y', // baseline profile (level 3.0) for H264 video codec
-                        '-f hls',
-                        '-start_number 0',
-                        '-hls_time 4'
-                    ]).output('./streams/' + streamFileName + '.m3u8')
-                    .on('error', function(err, stdout, stderr) {
-                        console.log(err)
-                        res.end(JSON.stringify({status: 400, error: 'Error creating stream, verify your rtsp URL or try again later'}))
-                    })
-                    .on('progress', ()=>{
-                        res.end(JSON.stringify({streamURI: '/streams/' + streamFileName + '.m3u8'}))
-                    })
-                    .on('end', ()=>{
-                        store.push(streamFileName);
-                        fs.writeFileSync(__dirname + '/../streams/store.json', JSON.stringify(store))
-                    })
-                    .run()
-                    
-                } catch (error) {
-                    
-                    console.log('Error ffmpeg creating stream: ')
-                    console.log(error)
-                    res.end(JSON.stringify({status: 400, error: 'Error creating stream, verify your rtsp URL or try again later'}))
-                    
-                }
                 
+                spaw_process('ffmpeg', [
+                    '-rtsp_transport', 'tcp',
+                    '-n',
+                    '-i', req.body.rtsp,
+                    '-hls_time', '2',
+                    '-hls_list_size', '3',
+                    '-start_number', '0',
+                    '-y', './streams/' + streamFileName + '.m3u8'
+                ])
+                .then(
+                    ()=> {
+                        res.end(JSON.stringify({
+                            streamURI: '/streams/' + streamFileName + '.m3u8'
+                        }))
+                        store.push(streamFileName)
+                        fs.writeFileSync(__dirname + '/streams/store.json', JSON.stringify(store))
+                    }
+                )
+                .catch(
+                    () => {                            
+                        res.end(JSON.stringify({
+                            status: 400, 
+                            error: 'Error creating stream, verify your rtsp URL or try again later'
+                        }))
+                    }
+                )
+
             } else {
-                
                 console.log('Some other error: ', err.code)
                 res.end(JSON.stringify({status: 500, message: 'Server error, try again later'}))
-                
             }
         
         })
