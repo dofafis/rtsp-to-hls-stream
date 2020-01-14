@@ -27,7 +27,7 @@ router.post('/', createStreamFileName, function (req, res) {
                     in my case, more options generated more problems, so I kept it to a minimum */
                 
                 spaw_process('ffmpeg', [
-                    '-rtsp_transport', 'udp',
+                    '-rtsp_transport', 'tcp',
                     '-thread_queue_size', '32768',
                     '-n',
                     '-t', '18000',
