@@ -27,12 +27,19 @@ router.post('/', createStreamFileName, function (req, res) {
                     in my case, more options generated more problems, so I kept it to a minimum */
                 
                 spaw_process('ffmpeg', [
-                    '-rtsp_transport', 'tcp',
+                    '-rtsp_transport', 'udp',
+                    '-thread_queue_size', '32768',
                     '-n',
                     '-t', '18000',
                     '-i', req.body.rtsp,
-                    '-hls_time', '1',
+                    '-crf', '40',
+                    '-preset', 'superfast',
+                    '-f', 'hls',
+                    '-hls_time', '4',
+                    '-r', '10',
                     '-hls_list_size', '1000',
+                    '-sc_threshold', '0',
+                    '-b:v', '500k',
                     '-start_number', '0',
                     '-y', './streams/' + streamFileName + '.m3u8'
                 ])
