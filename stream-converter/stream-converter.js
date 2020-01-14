@@ -30,8 +30,8 @@ router.post('/', createStreamFileName, function (req, res) {
                     '-rtsp_transport', 'tcp',
                     '-n',
                     '-i', req.body.rtsp,
-                    '-hls_time', '2',
-                    '-hls_list_size', '3',
+                    '-hls_time', '1',
+                    '-hls_list_size', '1000',
                     '-start_number', '0',
                     '-y', './streams/' + streamFileName + '.m3u8'
                 ])
