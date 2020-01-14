@@ -38,11 +38,13 @@ router.post('/', createStreamFileName, function (req, res) {
                 ])
                 .then(
                     ()=> {
+                        store.push(streamFileName)
+                        fs.writeFile(__dirname + '/streams/store.json', JSON.stringify(store), function() {
+                            console.log(store)
+                        })
                         res.end(JSON.stringify({
                             streamURI: '/streams/' + streamFileName + '.m3u8'
                         }))
-                        store.push(streamFileName)
-                        fs.writeFileSync(__dirname + '/streams/store.json', JSON.stringify(store))
                     }
                 )
                 .catch(
