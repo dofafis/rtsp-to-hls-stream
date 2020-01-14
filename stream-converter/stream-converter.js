@@ -48,8 +48,9 @@ router.post('/', createStreamFileName, function (req, res) {
                 .then(
                     ()=> {
                         store.push(streamFileName)
-                        fs.writeFile(__dirname + '/streams/store.json', JSON.stringify(store), function() {
-                            console.log(store)
+                        fs.writeFile(__dirname + '/../streams/store.json', JSON.stringify(store), function(err) {
+                            console.log('writeFile Error:')
+                            console.log(err)
                         })
                         res.end(JSON.stringify({
                             streamURI: '/streams/' + streamFileName + '.m3u8'
