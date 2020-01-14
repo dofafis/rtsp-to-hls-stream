@@ -29,6 +29,7 @@ router.post('/', createStreamFileName, function (req, res) {
                 spaw_process('ffmpeg', [
                     '-rtsp_transport', 'tcp',
                     '-n',
+                    '-t', '18000'
                     '-i', req.body.rtsp,
                     '-hls_time', '1',
                     '-hls_list_size', '1000',
