@@ -1,5 +1,4 @@
 var router = require('express').Router()
-var ffmpeg = require('fluent-ffmpeg')
 var crypto = require('crypto')
 var fs = require('fs')
 var glob = require('glob')
