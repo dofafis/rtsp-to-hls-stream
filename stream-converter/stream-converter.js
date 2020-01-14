@@ -3,13 +3,15 @@ var crypto = require('crypto')
 var fs = require('fs')
 var glob = require('glob')
 var spaw_process = require('./spawn_process')
-
+var store = []
 router.post('/', createStreamFileName, function (req, res) {
   
     console.log(req.body.streamFileName)
     var streamFileName = req.body.streamFileName
     
     store = JSON.parse(fs.readFileSync(__dirname + '/../streams/store.json', 'utf8'));
+    console.log('Store: ')
+    console.log(store)
     if(store.find((a)=>{ return a === streamFileName }))
         res.end(JSON.stringify({streamURI: '/streams/' + streamFileName + '.m3u8'}))
     else {
